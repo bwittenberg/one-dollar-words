@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/one-dollar-words/static/css/main.d38b281f.chunk.css",
-    "main.js": "/one-dollar-words/static/js/main.824758e8.chunk.js",
-    "main.js.map": "/one-dollar-words/static/js/main.824758e8.chunk.js.map",
+    "main.js": "/one-dollar-words/static/js/main.6a5ad810.chunk.js",
+    "main.js.map": "/one-dollar-words/static/js/main.6a5ad810.chunk.js.map",
     "runtime-main.js": "/one-dollar-words/static/js/runtime-main.6792595c.js",
     "runtime-main.js.map": "/one-dollar-words/static/js/runtime-main.6792595c.js.map",
     "static/js/2.826129ec.chunk.js": "/one-dollar-words/static/js/2.826129ec.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.6792595c.js",
     "static/js/2.826129ec.chunk.js",
     "static/css/main.d38b281f.chunk.css",
-    "static/js/main.824758e8.chunk.js"
+    "static/js/main.6a5ad810.chunk.js"
   ]
 }
