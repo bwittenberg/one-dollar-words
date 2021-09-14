@@ -66,7 +66,9 @@ function App() {
     setCents(getWordValue(word));
   };
 
-  const [wordListUrl, setWordListUrl] = useState("");
+  const [wordListUrl, setWordListUrl] = useState(
+    "https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json"
+  );
   const updateUrl: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWordListUrl(e.target.value);
   };
@@ -111,19 +113,27 @@ function App() {
         <p>${(cents / 100).toFixed(2)} </p>
         <button onClick={clear}>Clear</button>
       </header>
-      <h2>{list.length} 💰 Words</h2>
+      <div className="money" onClick={fetchUrl}></div>
       <form onSubmit={handleUrlForm}>
-        <input type="text" value={wordListUrl} onChange={updateUrl} />
+        <input type="hidden" value={wordListUrl} onChange={updateUrl} />
       </form>
-      <div className="word-list">
-        {list.map((word) => {
-          return (
-            <div className="word" key={word}>
-              {word}
-            </div>
-          );
-        })}
-      </div>
+      {list.length > 0 ? (
+        <>
+          <p>
+            Found {list.length} $1 words from{" "}
+            <a href={wordListUrl}>{wordListUrl}</a>
+          </p>
+          <div className="word-list">
+            {list.map((word) => {
+              return (
+                <div className="word" key={word}>
+                  {word}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }

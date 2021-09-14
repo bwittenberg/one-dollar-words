@@ -25,3 +25,12 @@ code {
   width: 100px;
   page-break-after: always;
 }
+
+.money {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
