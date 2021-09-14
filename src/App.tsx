@@ -38,7 +38,7 @@ const wordValueLookup: Record<string, number> = {
 };
 
 export const getWordValue = (word: string) => {
-  return [...word].reduce(
+  return [...word.toLowerCase()].reduce(
     (acc: number, letter: keyof typeof wordValueLookup) => {
       return acc + wordValueLookup[letter];
     },
@@ -73,14 +73,13 @@ function App() {
   };
   const fetchUrl = useCallback(async () => {
     const json = await (await fetch(wordListUrl)).json();
-    const listOfWordsEqualingA100Cents = Object.keys(json).filter(
-      (word) => getWordValue(word) === 100
-    );
-    setList(listOfWordsEqualingA100Cents);
+    const list = Array.isArray(json) ? json : Object.keys(json);
+    const filter = (word: string) => getWordValue(word) === 100;
+    setList(list.filter(filter));
   }, [wordListUrl]);
   useEffect(() => {
     fetchUrl();
-  }, [fetchUrl]);
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -89,9 +88,9 @@ function App() {
         <form onSubmit={calculateValue}>
           <input type="text" value={word} onChange={updateWord} />
         </form>
-        <p>Value: {cents} </p>
+        <p>${(cents / 100).toFixed(2)} </p>
       </header>
-      <h2>{list.length} $1 Words</h2>
+      <h2>{list.length} 💰 Words</h2>
       <form onSubmit={handleUrlForm}>
         <input type="text" value={wordListUrl} onChange={updateUrl} />
       </form>
