@@ -58,9 +58,7 @@ function App() {
     setCents(getWordValue(word));
   };
 
-  const [wordListUrl, setWordListUrl] = useState(
-    "https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json"
-  );
+  const [wordListUrl, setWordListUrl] = useState("");
   const updateUrl: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWordListUrl(e.target.value);
   };
@@ -72,13 +70,19 @@ function App() {
     fetchUrl();
   };
   const fetchUrl = useCallback(async () => {
+    if (wordListUrl.length < 0) {
+      return;
+    }
     const json = await (await fetch(wordListUrl)).json();
     const list = Array.isArray(json) ? json : Object.keys(json);
     const filter = (word: string) => getWordValue(word) === 100;
     setList(list.filter(filter));
   }, [wordListUrl]);
   useEffect(() => {
-    fetchUrl();
+    console.log([
+      "https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json",
+      "https://raw.githubusercontent.com/bevacqua/correcthorse/master/wordlist.json",
+    ]);
   }, []);
   return (
     <div className="App">
