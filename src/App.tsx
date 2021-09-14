@@ -3,6 +3,7 @@ import React, {
   FormEventHandler,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import "./App.css";
@@ -48,10 +49,17 @@ export const getWordValue = (word: string) => {
 
 function App() {
   const [cents, setCents] = useState(0);
+
+  const inputRef = useRef<HTMLInputElement>(null);
   const [word, setWord] = useState("");
   const updateWord: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWord(e.target.value);
   };
+  const clear = () => {
+    inputRef.current?.focus();
+    setWord("");
+  };
+
   const calculateValue: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -78,21 +86,30 @@ function App() {
     const filter = (word: string) => getWordValue(word) === 100;
     setList(list.filter(filter));
   }, [wordListUrl]);
+
   useEffect(() => {
+    inputRef.current?.focus();
     console.log([
       "https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json",
       "https://raw.githubusercontent.com/bevacqua/correcthorse/master/wordlist.json",
     ]);
   }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={minecraft} className="App-logo" alt="logo" />
         <h1>Enter a word!</h1>
         <form onSubmit={calculateValue}>
-          <input type="text" value={word} onChange={updateWord} />
+          <input
+            type="text"
+            value={word}
+            onChange={updateWord}
+            ref={inputRef}
+          />
         </form>
         <p>${(cents / 100).toFixed(2)} </p>
+        <button onClick={clear}>Clear</button>
       </header>
       <h2>{list.length} 💰 Words</h2>
       <form onSubmit={handleUrlForm}>
